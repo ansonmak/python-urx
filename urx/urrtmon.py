@@ -50,6 +50,7 @@ class URRTMonitor(threading.Thread):
         self._qTarget = None
         self._tcp = None
         self._tcp_force = None
+        self._tcp_speed = None
         self._joint_temperature = None
         self._joint_voltage = None
         self._joint_current = None
@@ -262,15 +263,16 @@ class URRTMonitor(threading.Thread):
             self._qActual = np.array(unp[31:37])
             self._qdActual = np.array(unp[37:43])
             self._qTarget = np.array(unp[1:7])
+            self._tcp_speed = np.array(unp[61:67])
             self._tcp_force = np.array(unp[67:73])
             self._tcp = np.array(unp[73:79])            
             self._joint_current = np.array(unp[43:49])
-            if self.urFirm >= 3.1:
-                self._joint_temperature = np.array(unp[86:92])
-                self._joint_voltage = np.array(unp[124:130])
-                self._main_voltage = unp[121]
-                self._robot_voltage = unp[122]
-                self._robot_current = unp[123]
+            # if self.urFirm >= 3.1:
+                # self._joint_temperature = np.array(unp[86:92])
+                # self._joint_voltage = np.array(unp[124:130])
+                # self._main_voltage = unp[121]
+                # self._robot_voltage = unp[122]
+                # self._robot_current = unp[123]
 
             if self._csys:
                 with self._csys_lock:
@@ -339,6 +341,7 @@ class URRTMonitor(threading.Thread):
                 qTarget=self._qTarget,
                 tcp=self._tcp,
                 tcp_force=self._tcp_force,
+                tcp_speed=self._tcp_speed,
                 joint_temperature=self._joint_temperature,
                 joint_voltage=self._joint_voltage,
                 joint_current=self._joint_current,

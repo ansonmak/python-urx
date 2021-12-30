@@ -154,6 +154,12 @@ class URRobot(object):
         """
         return self.rtmon.getALLData(wait)
 
+    def  get_tcp_speed(self, wait=True):
+        """
+        return tcp speed relative to base frame
+        if wait==True, waits for next packet before returning
+        """
+        return self.rtmon.getALLData(wait)['tcp_speed']
 
     def set_tcp(self, tcp):
         """
