@@ -150,6 +150,19 @@ class URRTMonitor(threading.Thread):
                 return tcf_force
     getTCFForce = tcf_force
 
+    def tcp_speed(self, wait=False, timestamp=False):
+        """ Get the tool speed in base frame. The returned tool speed is a
+        six-vector of three speeds and three angular speeds."""
+        if wait:
+            self.wait()
+        with self._dataAccess:
+            tcp_speed = self._tcp_speed
+            if timestamp:
+                return self._timestamp, tcp_speed
+            else:
+                return tcp_speed
+    getTCPSpeed = tcp_speed
+
     def joint_temperature(self, wait=False, timestamp=False):
         """ Get the joint temperature."""
         if wait:

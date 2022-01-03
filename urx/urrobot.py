@@ -105,6 +105,13 @@ class URRobot(object):
             force += i**2
         return force**0.5
 
+    def get_tcp_speed(self, wait=True):
+        """
+        return tcp speed relative to base frame
+        if wait==True, waits for next packet before returning
+        """
+        return self.rtmon.getTCPSpeed(wait)
+
     def get_joint_temperature(self, wait=True):
         """
         return measured joint temperature
@@ -153,13 +160,6 @@ class URRobot(object):
         if wait==True, waits for next packet before returning
         """
         return self.rtmon.getALLData(wait)
-
-    def  get_tcp_speed(self, wait=True):
-        """
-        return tcp speed relative to base frame
-        if wait==True, waits for next packet before returning
-        """
-        return self.rtmon.getALLData(wait)['tcp_speed']
 
     def set_tcp(self, tcp):
         """
